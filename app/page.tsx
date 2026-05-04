@@ -24,11 +24,11 @@ export default function Home() {
       <main className="mx-auto flex w-full max-w-lg flex-1 flex-col justify-center px-5 py-16 sm:px-6 sm:py-24">
         <div className="flex flex-col gap-10 sm:gap-12">
           <Hero />
-          <div className="animate-reveal-up [animation-delay:0.32s]">
+          <div className="animate-reveal-up [animation-delay:0.85s]">
             <WaitlistForm />
           </div>
         </div>
-        <p className="animate-reveal-up mt-12 text-center text-xs text-white/35 [animation-delay:0.4s]">
+        <p className="animate-reveal-up mt-12 text-center text-xs text-white/35 [animation-delay:1.05s]">
           Restaurants, parks, beaches &amp; more — curated by people who actually go.
         </p>
       </main>
