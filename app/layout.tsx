@@ -24,9 +24,9 @@ export const metadata: Metadata = {
     description: "Real places. Real experiences. Join the waitlist.",
   },
   icons: {
-    icon: "/icon.png",
-    apple: "/icon.png",
-    shortcut: "/icon.png",
+    icon: "/icon.png?v=3",
+    apple: "/icon.png?v=3",
+    shortcut: "/icon.png?v=3",
   },
 };
 
