@@ -6,7 +6,7 @@ const subtitleWords = ["Real", "places.", "Real", "experiences.", "No", "tourist
 export function Hero() {
   return (
     <header className="text-center" style={{ perspective: "600px" }}>
-      <div className="animate-reveal-up mx-auto mb-5 w-fit rounded-[1.45rem] border border-white/15 bg-white/[0.05] p-2.5 backdrop-blur-lg [animation-delay:0.05s]">
+      <div className="animate-reveal-up mx-auto mb-5 w-fit rounded-[1.45rem] border border-white/15 bg-white/[0.05] p-2.5 backdrop-blur-lg [animation-delay:0s]">
         <Image
           src="/datemap-logo.png"
           alt="DateMap logo"
@@ -16,7 +16,7 @@ export function Hero() {
           priority
         />
       </div>
-      <p className="animate-reveal-up mb-4 inline-flex items-center rounded-full border border-white/15 bg-white/[0.05] px-3 py-1 text-xs font-medium tracking-wide text-white/65 backdrop-blur-md [animation-delay:0.25s]">
+      <p className="animate-reveal-up mb-4 inline-flex items-center rounded-full border border-white/15 bg-white/[0.05] px-3 py-1 text-xs font-medium tracking-wide text-white/65 backdrop-blur-md [animation-delay:0.1s]">
         DateMap · Waitlist
       </p>
 
@@ -25,7 +25,7 @@ export function Hero() {
           <span
             key={i}
             className="animate-word"
-            style={{ animationDelay: `${0.35 + i * 0.08}s` }}
+            style={{ animationDelay: `${0.2 + i * 0.07}s` }}
           >
             {word}
             {i < titleWords.length - 1 ? "\u00A0" : ""}
@@ -38,7 +38,7 @@ export function Hero() {
           <span
             key={i}
             className="animate-word"
-            style={{ animationDelay: `${0.95 + i * 0.07}s` }}
+            style={{ animationDelay: `${0.7 + i * 0.06}s` }}
           >
             {word}
             {i < subtitleWords.length - 1 ? "\u00A0" : ""}
