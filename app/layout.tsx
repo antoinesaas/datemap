@@ -23,6 +23,11 @@ export const metadata: Metadata = {
     title: "DateMap — Waitlist",
     description: "Real places. Real experiences. Join the waitlist.",
   },
+  icons: {
+    icon: "/icon.png?v=3",
+    apple: "/icon.png?v=3",
+    shortcut: "/icon.png?v=3",
+  },
 };
 
 export default function RootLayout({

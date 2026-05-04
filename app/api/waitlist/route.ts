@@ -49,7 +49,10 @@ export async function POST(request: Request) {
   } catch (e) {
     console.error(e);
     return NextResponse.json(
-      { error: "Server configuration error." },
+      {
+        error:
+          "Server configuration error: missing NEXT_PUBLIC_SUPABASE_URL or SUPABASE_SERVICE_ROLE_KEY.",
+      },
       { status: 500 },
     );
   }
@@ -62,6 +65,12 @@ export async function POST(request: Request) {
 
   if (error) {
     console.error("waitlist insert", error);
+    if (error.code === "42P01") {
+      return NextResponse.json(
+        { error: "Database table 'waitlist' not found. Please run migration." },
+        { status: 500 },
+      );
+    }
     return NextResponse.json(
       { error: "Could not save your email. Please try again." },
       { status: 500 },
