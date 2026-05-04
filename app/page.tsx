@@ -5,8 +5,7 @@ export default function Home() {
   return (
     <div className="relative flex min-h-full flex-1 flex-col overflow-hidden">
       <div
-        className="pointer-events-none fixed inset-0 -z-20 bg-[url('/topo-relief.png')] bg-[length:420px_240px] bg-repeat opacity-[0.14]"
-        style={{ filter: "invert(1) brightness(1.6) contrast(0.85)" }}
+        className="pointer-events-none fixed inset-0 -z-20 bg-[url('/topo-relief.png')] bg-[length:420px_240px] bg-repeat opacity-[0.18] mix-blend-soft-light"
         aria-hidden
       />
       <div
