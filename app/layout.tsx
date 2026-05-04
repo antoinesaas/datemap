@@ -24,9 +24,9 @@ export const metadata: Metadata = {
     description: "Real places. Real experiences. Join the waitlist.",
   },
   icons: {
-    icon: [{ url: "/datemap-logo.png", type: "image/png" }],
-    apple: [{ url: "/datemap-logo.png", type: "image/png" }],
-    shortcut: [{ url: "/datemap-logo.png" }],
+    icon: "/icon.png",
+    apple: "/icon.png",
+    shortcut: "/icon.png",
   },
 };
 
