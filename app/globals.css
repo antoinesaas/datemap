@@ -47,32 +47,15 @@ body {
   }
 }
 
-@keyframes curtain-lift {
-  0% {
-    opacity: 1;
-    transform: scaleY(1);
-    transform-origin: top;
-  }
-  60% {
-    opacity: 1;
-  }
-  100% {
-    opacity: 0;
-    transform: scaleY(0);
-    transform-origin: top;
-    pointer-events: none;
-  }
-}
-
-@keyframes page-scale-in {
+@keyframes word-appear {
   from {
     opacity: 0;
-    transform: scale(0.97);
-    filter: blur(6px);
+    transform: translateY(22px) rotateX(18deg);
+    filter: blur(4px);
   }
   to {
     opacity: 1;
-    transform: scale(1);
+    transform: translateY(0) rotateX(0deg);
     filter: blur(0);
   }
 }
@@ -90,10 +73,8 @@ body {
   animation: gradient-drift 22s ease-in-out infinite;
 }
 
-.animate-curtain {
-  animation: curtain-lift 1.1s cubic-bezier(0.76, 0, 0.24, 1) 0.15s both;
-}
-
-.animate-page-in {
-  animation: page-scale-in 1.2s cubic-bezier(0.16, 1, 0.3, 1) both;
+.animate-word {
+  display: inline-block;
+  animation: word-appear 0.9s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation-fill-mode: backwards;
 }

@@ -4,11 +4,6 @@ import { WaitlistForm } from "@/components/WaitlistForm";
 export default function Home() {
   return (
     <div className="relative flex min-h-full flex-1 flex-col overflow-hidden">
-      {/* Entrance curtain overlay */}
-      <div
-        className="animate-curtain pointer-events-none fixed inset-0 z-50 bg-[#060708]"
-        aria-hidden
-      />
       <div
         className="pointer-events-none fixed inset-0 -z-20 bg-[url('/topo-relief.png')] bg-[length:420px_240px] bg-repeat opacity-[0.18] mix-blend-soft-light"
         aria-hidden
@@ -26,7 +21,7 @@ export default function Home() {
         aria-hidden
       />
 
-      <main className="animate-page-in mx-auto flex w-full max-w-lg flex-1 flex-col justify-center px-5 py-16 sm:px-6 sm:py-24">
+      <main className="mx-auto flex w-full max-w-lg flex-1 flex-col justify-center px-5 py-16 sm:px-6 sm:py-24">
         <div className="flex flex-col gap-10 sm:gap-12">
           <Hero />
           <div className="animate-reveal-up [animation-delay:0.85s]">

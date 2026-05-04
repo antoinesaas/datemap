@@ -1,8 +1,11 @@
 import Image from "next/image";
 
+const titleWords = ["Find", "the", "best", "date", "spots", "around", "you."];
+const subtitleWords = ["Real", "places.", "Real", "experiences.", "No", "tourist", "traps."];
+
 export function Hero() {
   return (
-    <header className="text-center">
+    <header className="text-center" style={{ perspective: "600px" }}>
       <div className="animate-reveal-up mx-auto mb-5 w-fit rounded-[1.45rem] border border-white/15 bg-white/[0.05] p-2.5 backdrop-blur-lg [animation-delay:0.05s]">
         <Image
           src="/datemap-logo.png"
@@ -16,11 +19,31 @@ export function Hero() {
       <p className="animate-reveal-up mb-4 inline-flex items-center rounded-full border border-white/15 bg-white/[0.05] px-3 py-1 text-xs font-medium tracking-wide text-white/65 backdrop-blur-md [animation-delay:0.25s]">
         DateMap · Waitlist
       </p>
-      <h1 className="animate-reveal-up mx-auto max-w-[20ch] bg-gradient-to-b from-white via-zinc-100 to-zinc-400 bg-clip-text text-4xl font-semibold leading-[1.1] tracking-tight text-transparent [animation-delay:0.45s] sm:text-5xl sm:leading-[1.08]">
-        Find the best date spots around you.
+
+      <h1 className="mx-auto max-w-[20ch] bg-gradient-to-b from-white via-zinc-100 to-zinc-400 bg-clip-text text-4xl font-semibold leading-[1.1] tracking-tight text-transparent sm:text-5xl sm:leading-[1.08]">
+        {titleWords.map((word, i) => (
+          <span
+            key={i}
+            className="animate-word"
+            style={{ animationDelay: `${0.35 + i * 0.08}s` }}
+          >
+            {word}
+            {i < titleWords.length - 1 ? "\u00A0" : ""}
+          </span>
+        ))}
       </h1>
-      <p className="animate-reveal-up mx-auto mt-5 max-w-md text-base leading-relaxed text-white/55 [animation-delay:0.65s] sm:text-lg">
-        Real places. Real experiences. No tourist traps.
+
+      <p className="mx-auto mt-5 max-w-md text-base leading-relaxed text-white/55 sm:text-lg">
+        {subtitleWords.map((word, i) => (
+          <span
+            key={i}
+            className="animate-word"
+            style={{ animationDelay: `${0.95 + i * 0.07}s` }}
+          >
+            {word}
+            {i < subtitleWords.length - 1 ? "\u00A0" : ""}
+          </span>
+        ))}
       </p>
     </header>
   );
