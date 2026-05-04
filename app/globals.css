@@ -51,6 +51,11 @@ body {
   animation: fade-in 0.9s ease-out both;
 }
 
+.animate-reveal-up {
+  animation: fade-in 0.85s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation-fill-mode: backwards;
+}
+
 .animate-gradient-drift {
   animation: gradient-drift 22s ease-in-out infinite;
 }

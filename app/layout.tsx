@@ -13,14 +13,14 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "DATEMAP — Waitlist",
+  title: "DateMap — Waitlist",
   description:
-    "Discover real date spots near you. Join the DATEMAP waitlist for early access.",
+    "Discover real date spots near you. Join the DateMap waitlist for early access.",
   verification: {
     google: "VPULkEKHpUE0KhT_JHRU6qnOqvBD13vG_WyFn82wGgQ",
   },
   openGraph: {
-    title: "DATEMAP — Waitlist",
+    title: "DateMap — Waitlist",
     description: "Real places. Real experiences. Join the waitlist.",
   },
 };
