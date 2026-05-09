@@ -9,6 +9,33 @@ const bodySchema = z.object({
   agreedToTerms: z.literal(true),
 });
 
+export async function GET() {
+  let supabase;
+  try {
+    supabase = getSupabaseAdmin();
+  } catch (e) {
+    console.error(e);
+    return NextResponse.json(
+      { error: "Erreur de configuration serveur." },
+      { status: 500 },
+    );
+  }
+
+  const { count, error } = await supabase
+    .from("waitlist")
+    .select("*", { count: "exact", head: true });
+
+  if (error) {
+    console.error("waitlist count", error);
+    return NextResponse.json(
+      { error: "Impossible de récupérer le nombre d’inscrits." },
+      { status: 500 },
+    );
+  }
+
+  return NextResponse.json({ count: count ?? 0 });
+}
+
 function clientIp(request: Request): string {
   const forwarded = request.headers.get("x-forwarded-for");
   if (forwarded) {
@@ -21,7 +48,7 @@ export async function POST(request: Request) {
   const ip = clientIp(request);
   if (!rateLimit(`waitlist:${ip}`)) {
     return NextResponse.json(
-      { error: "Too many requests. Try again in a minute." },
+      { error: "Trop de requêtes. Réessayez dans une minute." },
       { status: 429 },
     );
   }
@@ -30,13 +57,13 @@ export async function POST(request: Request) {
   try {
     json = await request.json();
   } catch {
-    return NextResponse.json({ error: "Invalid request body." }, { status: 400 });
+    return NextResponse.json({ error: "Requête invalide." }, { status: 400 });
   }
 
   const parsed = bodySchema.safeParse(json);
   if (!parsed.success) {
     return NextResponse.json(
-      { error: "A valid email and acceptance of the terms are required." },
+      { error: "Une adresse e-mail valide est requise." },
       { status: 400 },
     );
   }
@@ -49,7 +76,7 @@ export async function POST(request: Request) {
   } catch (e) {
     console.error(e);
     return NextResponse.json(
-      { error: "Server configuration error." },
+      { error: "Erreur de configuration serveur." },
       { status: 500 },
     );
   }
@@ -63,7 +90,7 @@ export async function POST(request: Request) {
   if (error) {
     console.error("waitlist insert", error);
     return NextResponse.json(
-      { error: "Could not save your email. Please try again." },
+      { error: "Impossible d’enregistrer votre e-mail. Réessayez." },
       { status: 500 },
     );
   }
@@ -75,11 +102,11 @@ export async function POST(request: Request) {
       await resend.emails.send({
         from,
         to: email,
-        subject: "You're on the DATEMAP waitlist",
+        subject: "Vous êtes sur la liste d’attente DATEMAP",
         html: `
-          <p>Thanks for joining <strong>DATEMAP</strong>.</p>
-          <p>You’ll discover real date spots near you soon.</p>
-          <p style="color:#666;font-size:14px;margin-top:24px">— The DATEMAP team</p>
+          <p>Merci de rejoindre <strong>DATEMAP</strong>.</p>
+          <p>Vous découvrirez bientôt de vrais lieux de rendez-vous près de chez vous.</p>
+          <p style="color:#666;font-size:14px;margin-top:24px">— L’équipe DATEMAP</p>
         `,
       });
     } catch (e) {

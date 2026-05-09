@@ -29,7 +29,7 @@ export default function Home() {
           </div>
         </div>
         <p className="animate-reveal-up mt-12 text-center text-xs text-white/35 [animation-delay:0.8s]">
-          Restaurants, parks, beaches &amp; more — curated by people who actually go.
+          Restaurants, parcs, plages et plus — sélectionnés par des gens qui y vont vraiment.
         </p>
       </main>
     </div>

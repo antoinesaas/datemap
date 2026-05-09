@@ -3,8 +3,8 @@ import type { Metadata } from "next";
 import { GlassCard } from "@/components/GlassCard";
 
 export const metadata: Metadata = {
-  title: "Terms & Conditions — DATEMAP",
-  description: "Terms for the DATEMAP waitlist and website.",
+  title: "Conditions d’utilisation — DATEMAP",
+  description: "Conditions pour la liste d’attente et le site DATEMAP.",
 };
 
 export default function TermsPage() {
@@ -19,7 +19,7 @@ export default function TermsPage() {
           href="/"
           className="mb-8 inline-block text-sm text-accent/90 hover:text-accent"
         >
-          ← Back
+          ← Retour
         </Link>
         <GlassCard className="px-6 py-8 sm:px-10 sm:py-10">
           <h1 className="text-2xl font-semibold text-white">Terms &amp; Conditions</h1>

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -13,15 +14,15 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "DateMap — Waitlist",
+  title: "DateMap — Liste d’attente",
   description:
-    "Discover real date spots near you. Join the DateMap waitlist for early access.",
+    "Découvre de vrais lieux de rendez-vous près de chez toi. Inscris-toi sur la liste d’attente DateMap.",
   verification: {
     google: "VPULkEKHpUE0KhT_JHRU6qnOqvBD13vG_WyFn82wGgQ",
   },
   openGraph: {
-    title: "DateMap — Waitlist",
-    description: "Real places. Real experiences. Join the waitlist.",
+    title: "DateMap — Liste d’attente",
+    description: "De vrais endroits, de vraies expériences. Rejoins la liste d’attente.",
   },
   icons: {
     icon: "/icon.png?v=3",
@@ -37,10 +38,13 @@ export default function RootLayout({
 }>) {
   return (
     <html
-      lang="en"
+      lang="fr"
       className={`${geistSans.variable} ${geistMono.variable} h-full scroll-smooth antialiased`}
     >
-      <body className="min-h-full flex flex-col font-sans">{children}</body>
+      <body className="min-h-full flex flex-col font-sans">
+        {children}
+        <Analytics />
+      </body>
     </html>
   );
 }

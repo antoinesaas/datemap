@@ -3,8 +3,8 @@ import type { Metadata } from "next";
 import { GlassCard } from "@/components/GlassCard";
 
 export const metadata: Metadata = {
-  title: "Privacy Policy — DATEMAP",
-  description: "How DATEMAP handles waitlist data (GDPR-aligned).",
+  title: "Politique de confidentialité — DATEMAP",
+  description: "Comment DATEMAP traite les données de la liste d’attente (aligné RGPD).",
 };
 
 export default function PrivacyPage() {
@@ -19,7 +19,7 @@ export default function PrivacyPage() {
           href="/"
           className="mb-8 inline-block text-sm text-accent/90 hover:text-accent"
         >
-          ← Back
+          ← Retour
         </Link>
         <GlassCard className="px-6 py-8 sm:px-10 sm:py-10">
           <h1 className="text-2xl font-semibold text-white">Privacy Policy</h1>
