@@ -2,7 +2,10 @@ import { NextResponse } from "next/server";
 import { z } from "zod";
 import { getResend } from "@/lib/resendClient";
 import { rateLimit } from "@/lib/rateLimit";
-import { getSupabaseAdmin } from "@/lib/supabaseAdmin";
+import {
+  fetchWaitlistSignupCountRest,
+  getSupabaseAdmin,
+} from "@/lib/supabaseAdmin";
 import { WAITLIST_CAP } from "@/lib/waitlistCap";
 
 const bodySchema = z.object({
@@ -12,6 +15,7 @@ const bodySchema = z.object({
 
 /** Compteur toujours calculé à la demande (pas de cache CDN / données). */
 export const dynamic = "force-dynamic";
+export const runtime = "nodejs";
 
 export async function GET() {
   let supabase;
@@ -20,27 +24,61 @@ export async function GET() {
   } catch (e) {
     console.error(e);
     return NextResponse.json(
-      { error: "Erreur de configuration serveur." },
+      {
+        error:
+          "Configuration Supabase manquante sur le serveur (URL + clé). Vérifie les variables sur Vercel.",
+      },
       { status: 500, headers: { "Cache-Control": "no-store" } },
     );
   }
 
-  const { count, error } = await supabase
-    .from("waitlist")
-    .select("id", { count: "exact", head: true });
+  let n: number | null = null;
 
-  if (error) {
-    console.error("waitlist count", error);
-    return NextResponse.json(
-      { error: "Impossible de récupérer le nombre d’inscrits." },
-      {
-        status: 500,
-        headers: { "Cache-Control": "no-store" },
-      },
-    );
+  const rpc = await supabase.rpc("waitlist_signup_count", {});
+  if (!rpc.error && rpc.data != null) {
+    const v = typeof rpc.data === "number" ? rpc.data : Number(rpc.data);
+    if (Number.isFinite(v)) n = v;
+  }
+  if (rpc.error) {
+    console.warn("waitlist_signup_count client RPC:", rpc.error.message);
   }
 
-  const n = count ?? 0;
+  if (n == null) {
+    const rest = await fetchWaitlistSignupCountRest();
+    if (rest != null) n = rest;
+  }
+
+  if (n == null) {
+    const { count, error } = await supabase
+      .from("waitlist")
+      .select("*", { count: "exact", head: true });
+
+    if (error) {
+      console.error("waitlist count head", error);
+      return NextResponse.json(
+        {
+          error:
+            "Impossible de joindre Supabase pour le compteur. Vérifie la migration waitlist_public_count.sql et SUPABASE_SERVICE_ROLE_KEY sur Vercel.",
+        },
+        {
+          status: 500,
+          headers: { "Cache-Control": "no-store" },
+        },
+      );
+    }
+
+    if (count == null) {
+      console.error("waitlist count: PostgREST a renvoyé count=null");
+      return NextResponse.json(
+        {
+          error:
+            "Compteur indisponible. Déploie la fonction SQL waitlist_signup_count sur ton projet Supabase.",
+        },
+        { status: 500, headers: { "Cache-Control": "no-store" } },
+      );
+    }
+    n = count;
+  }
   const remaining = Math.max(0, WAITLIST_CAP - n);
 
   return NextResponse.json(

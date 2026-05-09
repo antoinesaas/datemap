@@ -135,7 +135,7 @@ export function WaitlistForm() {
           className="group relative mt-1 w-full overflow-hidden rounded-xl bg-gradient-to-r from-[#5c1622] via-[#6f1d2a] to-[#7d2433] py-3.5 text-sm font-semibold text-white shadow-lg shadow-[#6f1d2a]/35 transition-[transform,box-shadow] hover:shadow-[0_0_24px_rgba(111,29,42,0.7)] active:scale-[0.98] disabled:opacity-60"
         >
           <span className="relative z-10">
-            {loading ? "Inscription…" : "Rejoindre la liste d’attente"}
+            {loading ? "Envoi…" : "Je veux mon accès"}
           </span>
           <span
             className="pointer-events-none absolute inset-0 opacity-0 transition-opacity group-hover:opacity-100"
