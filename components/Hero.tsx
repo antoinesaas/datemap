@@ -1,6 +1,6 @@
 import Image from "next/image";
 
-const titleWords = ["Trouve", "les", "meilleurs", "lieux", "de", "rendez-vous", "près", "de", "toi."];
+const titleWords = ["Trouve", "ton", "prochain", "spot", "pour", "ton", "date."];
 const subtitleWords = [
   "De",
   "vrais",
@@ -16,22 +16,22 @@ const subtitleWords = [
 
 export function Hero() {
   return (
-    <header className="text-center" style={{ perspective: "600px" }}>
-      <div className="animate-reveal-up mx-auto mb-5 w-fit rounded-[1.45rem] border border-white/15 bg-white/[0.05] p-2.5 backdrop-blur-lg [animation-delay:0s]">
+    <header className="max-sm:shrink-0 text-center" style={{ perspective: "600px" }}>
+      <div className="animate-reveal-up mx-auto mb-4 w-fit rounded-[1.45rem] border border-white/15 bg-white/[0.05] p-2 backdrop-blur-lg [animation-delay:0s] sm:mb-5 sm:p-2.5">
         <Image
           src="/datemap-logo.png"
           alt="Logo DateMap"
           width={200}
           height={200}
-          className="h-20 w-20 rounded-2xl object-contain sm:h-24 sm:w-24"
+          className="h-16 w-16 rounded-2xl object-contain sm:h-24 sm:w-24"
           priority
         />
       </div>
-      <p className="animate-reveal-up mb-4 inline-flex items-center rounded-full border border-white/15 bg-white/[0.05] px-3 py-1 text-xs font-medium tracking-wide text-white/65 backdrop-blur-md [animation-delay:0.1s]">
+      <p className="animate-reveal-up mb-3 inline-flex items-center rounded-full border border-white/15 bg-white/[0.05] px-3 py-1 text-xs font-medium tracking-wide text-white/65 backdrop-blur-md [animation-delay:0.1s] sm:mb-4">
         DateMap · Liste d’attente
       </p>
 
-      <h1 className="mx-auto max-w-[24ch] bg-gradient-to-b from-white via-zinc-100 to-zinc-400 bg-clip-text text-4xl font-semibold leading-[1.1] tracking-tight text-transparent sm:text-5xl sm:leading-[1.08]">
+      <h1 className="mx-auto max-w-[22ch] bg-gradient-to-b from-white via-zinc-100 to-zinc-400 bg-clip-text text-3xl font-semibold leading-[1.12] tracking-tight text-transparent sm:max-w-[24ch] sm:text-5xl sm:leading-[1.08]">
         {titleWords.map((word, i) => (
           <span
             key={i}
@@ -44,7 +44,7 @@ export function Hero() {
         ))}
       </h1>
 
-      <p className="mx-auto mt-5 max-w-md text-base leading-relaxed text-white/55 sm:text-lg">
+      <p className="mx-auto mt-4 max-w-md text-sm leading-relaxed text-white/55 sm:mt-5 sm:text-lg">
         {subtitleWords.map((word, i) => (
           <span
             key={i}

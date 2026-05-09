@@ -3,11 +3,15 @@ import { z } from "zod";
 import { getResend } from "@/lib/resendClient";
 import { rateLimit } from "@/lib/rateLimit";
 import { getSupabaseAdmin } from "@/lib/supabaseAdmin";
+import { WAITLIST_CAP } from "@/lib/waitlistCap";
 
 const bodySchema = z.object({
   email: z.string().email().max(320),
   agreedToTerms: z.literal(true),
 });
+
+/** Compteur toujours calculé à la demande (pas de cache CDN / données). */
+export const dynamic = "force-dynamic";
 
 export async function GET() {
   let supabase;
@@ -17,23 +21,32 @@ export async function GET() {
     console.error(e);
     return NextResponse.json(
       { error: "Erreur de configuration serveur." },
-      { status: 500 },
+      { status: 500, headers: { "Cache-Control": "no-store" } },
     );
   }
 
   const { count, error } = await supabase
     .from("waitlist")
-    .select("*", { count: "exact", head: true });
+    .select("id", { count: "exact", head: true });
 
   if (error) {
     console.error("waitlist count", error);
     return NextResponse.json(
       { error: "Impossible de récupérer le nombre d’inscrits." },
-      { status: 500 },
+      {
+        status: 500,
+        headers: { "Cache-Control": "no-store" },
+      },
     );
   }
 
-  return NextResponse.json({ count: count ?? 0 });
+  const n = count ?? 0;
+  const remaining = Math.max(0, WAITLIST_CAP - n);
+
+  return NextResponse.json(
+    { count: n, remaining, cap: WAITLIST_CAP },
+    { headers: { "Cache-Control": "no-store, max-age=0" } },
+  );
 }
 
 function clientIp(request: Request): string {

@@ -21,14 +21,14 @@ export default function Home() {
         aria-hidden
       />
 
-      <main className="mx-auto flex w-full max-w-lg flex-1 flex-col justify-center px-5 py-16 sm:px-6 sm:py-24">
-        <div className="flex flex-col gap-10 sm:gap-12">
-          <Hero />
+      <main className="mx-auto flex min-h-[100dvh] w-full max-w-lg flex-1 flex-col px-5 py-6 sm:min-h-0 sm:justify-center sm:px-6 sm:py-24">
+        <Hero />
+        <div className="flex min-h-0 flex-1 flex-col justify-center sm:flex-initial sm:justify-start">
           <div className="animate-reveal-up [animation-delay:0.6s]">
             <WaitlistForm />
           </div>
         </div>
-        <p className="animate-reveal-up mt-12 text-center text-xs text-white/35 [animation-delay:0.8s]">
+        <p className="animate-reveal-up mt-6 shrink-0 text-center text-xs text-white/35 [animation-delay:0.8s] sm:mt-12">
           Restaurants, parcs, plages et plus — sélectionnés par des gens qui y vont vraiment.
         </p>
       </main>

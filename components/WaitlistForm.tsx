@@ -3,28 +3,36 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { GlassCard } from "./GlassCard";
+import { WAITLIST_CAP } from "@/lib/waitlistCap";
 
-const WAITLIST_CAP = 1000;
+async function fetchWaitlistStats(): Promise<{
+  remaining: number;
+  cap: number;
+} | null> {
+  const res = await fetch("/api/waitlist", { cache: "no-store" });
+  const data = (await res.json()) as {
+    remaining?: number;
+    cap?: number;
+    error?: string;
+  };
+  if (!res.ok || typeof data.remaining !== "number") {
+    return null;
+  }
+  return { remaining: data.remaining, cap: data.cap ?? WAITLIST_CAP };
+}
 
 export function WaitlistForm() {
   const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [done, setDone] = useState(false);
-  const [registeredCount, setRegisteredCount] = useState<number | null>(null);
+  const [placesLeft, setPlacesLeft] = useState<number | null>(null);
 
   useEffect(() => {
     let cancelled = false;
     (async () => {
-      try {
-        const res = await fetch("/api/waitlist");
-        const data = (await res.json()) as { count?: number; error?: string };
-        if (!cancelled && res.ok && typeof data.count === "number") {
-          setRegisteredCount(data.count);
-        }
-      } catch {
-        /* compteur optionnel */
-      }
+      const stats = await fetchWaitlistStats();
+      if (!cancelled && stats) setPlacesLeft(stats.remaining);
     })();
     return () => {
       cancelled = true;
@@ -54,15 +62,8 @@ export function WaitlistForm() {
         return;
       }
       setDone(true);
-      try {
-        const countRes = await fetch("/api/waitlist");
-        const countData = (await countRes.json()) as { count?: number };
-        if (countRes.ok && typeof countData.count === "number") {
-          setRegisteredCount(countData.count);
-        }
-      } catch {
-        /* ignore */
-      }
+      const stats = await fetchWaitlistStats();
+      if (stats) setPlacesLeft(stats.remaining);
     } catch {
       setError("Problème réseau. Réessaie.");
     } finally {
@@ -83,16 +84,18 @@ export function WaitlistForm() {
     );
   }
 
-  const countLabel =
-    registeredCount == null
-      ? `… / ${WAITLIST_CAP} inscrits`
-      : `${registeredCount} / ${WAITLIST_CAP} inscrits`;
+  const placesLabel =
+    placesLeft == null
+      ? `… places restantes sur ${WAITLIST_CAP}`
+      : placesLeft === 1
+        ? `1 place restante sur ${WAITLIST_CAP}`
+        : `${placesLeft} places restantes sur ${WAITLIST_CAP}`;
 
   return (
     <GlassCard className="px-6 py-8 sm:px-9 sm:py-9">
       <form onSubmit={onSubmit} className="flex flex-col gap-5" noValidate>
         <p className="text-center text-sm font-medium tabular-nums tracking-tight text-white/70">
-          {countLabel}
+          {placesLabel}
         </p>
 
         <label className="block text-left text-sm font-medium text-white/75">
