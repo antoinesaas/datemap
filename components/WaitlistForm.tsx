@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { GlassCard } from "./GlassCard";
+import { RollingNumber } from "./RollingNumber";
 import { WAITLIST_CAP } from "@/lib/waitlistCap";
 
 async function fetchWaitlistStats(): Promise<{
@@ -84,18 +85,19 @@ export function WaitlistForm() {
     );
   }
 
-  const placesLabel =
-    placesLeft == null
-      ? `… places restantes sur ${WAITLIST_CAP}`
-      : placesLeft === 1
-        ? `1 place restante sur ${WAITLIST_CAP}`
-        : `${placesLeft} places restantes sur ${WAITLIST_CAP}`;
+  const placesSuffix =
+    placesLeft === 1
+      ? ` place restante sur ${WAITLIST_CAP}`
+      : ` places restantes sur ${WAITLIST_CAP}`;
 
   return (
     <GlassCard className="px-6 py-8 sm:px-9 sm:py-9">
       <form onSubmit={onSubmit} className="flex flex-col gap-5" noValidate>
-        <p className="text-center text-sm font-medium tabular-nums tracking-tight text-white/70">
-          {placesLabel}
+        <p className="flex flex-wrap items-baseline justify-center gap-x-0.5 text-center text-sm font-medium tracking-tight text-white/70">
+          <span className="inline-flex items-baseline text-base font-semibold text-white/90">
+            <RollingNumber key={placesLeft ?? "pending"} value={placesLeft} />
+          </span>
+          <span className="tabular-nums">{placesSuffix}</span>
         </p>
 
         <label className="block text-left text-sm font-medium text-white/75">
@@ -145,6 +147,9 @@ export function WaitlistForm() {
             }}
           />
         </button>
+        <p className="mx-auto mt-1 max-w-[32ch] text-center text-[13px] leading-snug text-white/50">
+          Inscris-toi pour avoir un accès VIP à la bêta
+        </p>
       </form>
     </GlassCard>
   );

@@ -1,17 +1,6 @@
 import Image from "next/image";
 
 const titleWords = ["Trouve", "ton", "prochain", "spot", "pour", "ton", "date."];
-const subtitleWords = [
-  "Inscris-toi",
-  "pour",
-  "avoir",
-  "un",
-  "accès",
-  "VIP",
-  "à",
-  "la",
-  "bêta.",
-];
 
 export function Hero() {
   return (
@@ -42,19 +31,6 @@ export function Hero() {
           </span>
         ))}
       </h1>
-
-      <p className="mx-auto mt-4 max-w-md text-sm leading-relaxed text-white/55 sm:mt-5 sm:text-lg">
-        {subtitleWords.map((word, i) => (
-          <span
-            key={i}
-            className="animate-word"
-            style={{ animationDelay: `${0.65 + i * 0.06}s` }}
-          >
-            {word}
-            {i < subtitleWords.length - 1 ? "\u00A0" : ""}
-          </span>
-        ))}
-      </p>
     </header>
   );
 }
