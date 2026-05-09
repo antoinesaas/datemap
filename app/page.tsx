@@ -23,7 +23,7 @@ export default function Home() {
 
       <main className="mx-auto flex min-h-[100dvh] w-full max-w-lg flex-1 flex-col px-5 py-6 sm:min-h-0 sm:justify-center sm:px-6 sm:py-24">
         <Hero />
-        <div className="flex min-h-0 flex-1 flex-col justify-center sm:flex-initial sm:justify-start">
+        <div className="mt-10 flex min-h-0 flex-1 flex-col justify-center sm:mt-14 sm:flex-initial sm:justify-start">
           <div className="animate-reveal-up [animation-delay:0.6s]">
             <WaitlistForm />
           </div>
